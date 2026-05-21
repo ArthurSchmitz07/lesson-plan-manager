@@ -1,1 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
 
+# Flask
+instance/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Node / Frontend
+node_modules/
+dist/
+.env.local
+
+# System files
+.DS_Store
+Thumbs.db
