@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson Plan Manager</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div>
+        <h1>Gerenciador de Planos de Aula</h1>
+        <p>Cadastre, organize e consulte planos de aula com apoio de IA.</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Novo Plano de Aula</h2>
+
+      <form id="lesson-plan-form">
+        <input type="hidden" id="lesson-id" />
+
+        <label>
+          Título da Aula
+          <input id="title" data-testid="title-input" type="text" required />
+        </label>
+
+        <label>
+          Objetivo
+          <textarea id="objective" data-testid="objective-input" required></textarea>
+        </label>
+
+        <label>
+          Ementa/Resumo
+          <textarea id="summary" data-testid="summary-input" required></textarea>
+        </label>
+
+        <label>
+          Data Prevista
+          <input id="planned_date" data-testid="planned-date-input" type="date" required />
+        </label>
+
+        <label>
+          Disciplina
+          <input id="discipline" data-testid="discipline-input" type="text" required />
+        </label>
+
+        <button type="button" id="smart-assist-button" data-testid="smart-assist-button">
+          Gerar Recomendações com IA
+        </button>
+
+        <label>
+          Conteúdos
+          <textarea id="contents" data-testid="contents-input"></textarea>
+        </label>
+
+        <label>
+          Recursos de Apoio
+          <textarea id="support_resources" data-testid="support-resources-input"></textarea>
+        </label>
+
+        <label>
+          Tags
+          <input id="tags" data-testid="tags-input" type="text" placeholder="Ex: python, programação, iniciante" />
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" data-testid="save-lesson-button">Salvar Plano</button>
+          <button type="button" id="clear-form-button" class="secondary">
+            Limpar
+          </button>
+        </div>
+      </form>
+
+      <p id="form-message" class="message"></p>
+    </section>
+
+    <section class="card">
+      <h2>Consulta de Planos</h2>
+
+      <div class="filters">
+        <input id="search" type="text" placeholder="Buscar por título" data-testid="search-input" />
+        <input id="filter-discipline" type="text" placeholder="Filtrar por disciplina" />
+        <input id="filter-tag" type="text" placeholder="Filtrar por tag" />
+        <input id="filter-date" type="date" />
+        <select id="sort-by">
+          <option value="created_at">Ordenar por cadastro</option>
+          <option value="title">Ordenar por título</option>
+        </select>
+        <button id="filter-button" data-testid="filter-button">Filtrar</button>
+      </div>
+
+      <div id="lesson-list" class="lesson-list"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
