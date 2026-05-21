@@ -103,5 +103,65 @@ def list_lesson_plans():
     }), 200
 
 
+@app.route("/lesson-plans/<int:lesson_plan_id>", methods=["GET"])
+def get_lesson_plan(lesson_plan_id):
+    lesson_plan = LessonPlan.query.get(lesson_plan_id)
+
+    if not lesson_plan:
+        return jsonify({
+            "error": "Lesson plan not found."
+        }), 404
+
+    return jsonify(lesson_plan.to_dict()), 200
+
+
+@app.route("/lesson-plans/<int:lesson_plan_id>", methods=["PUT"])
+def update_lesson_plan(lesson_plan_id):
+    lesson_plan = LessonPlan.query.get(lesson_plan_id)
+
+    if not lesson_plan:
+        return jsonify({
+            "error": "Lesson plan not found."
+        }), 404
+
+    data = request.get_json()
+
+    lesson_plan.title = data.get("title", lesson_plan.title)
+    lesson_plan.objective = data.get("objective", lesson_plan.objective)
+    lesson_plan.summary = data.get("summary", lesson_plan.summary)
+    lesson_plan.planned_date = data.get("planned_date", lesson_plan.planned_date)
+    lesson_plan.discipline = data.get("discipline", lesson_plan.discipline)
+    lesson_plan.contents = data.get("contents", lesson_plan.contents)
+    lesson_plan.support_resources = data.get(
+        "support_resources",
+        lesson_plan.support_resources
+    )
+    lesson_plan.tags = data.get("tags", lesson_plan.tags)
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Lesson plan updated successfully.",
+        "lesson_plan": lesson_plan.to_dict()
+    }), 200
+
+
+@app.route("/lesson-plans/<int:lesson_plan_id>", methods=["DELETE"])
+def delete_lesson_plan(lesson_plan_id):
+    lesson_plan = LessonPlan.query.get(lesson_plan_id)
+
+    if not lesson_plan:
+        return jsonify({
+            "error": "Lesson plan not found."
+        }), 404
+
+    db.session.delete(lesson_plan)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Lesson plan deleted successfully."
+    }), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
